@@ -8,9 +8,9 @@ namespace Lab_2
     {
     public class Customer
         {
-        public string _name;
-        public string _password;
-        public List<Products> _cart;
+        private string _name;
+        private string _password;
+        private List<Products> _cart;
 
 
         public string Name
@@ -28,20 +28,39 @@ namespace Lab_2
         public List<Products> Cart
             {
             get { return _cart; }
-            set { _cart = new List<Products>(); }
+            private set { _cart = value; }
             }
 
         public Customer(string name, string password)
             {
             Name = name;
             Password = password;
+            Cart = new List<Products>();
             }
 
         public override string ToString()
             {
-            return $"Namn: {Name} Lösenord: {Password} Kundvagn: {Cart}";
+            string products = string.Empty;
+
+            foreach (var product in Cart)
+                {
+                products += product.Product;
+                }
+
+            return $"{Name}\n{Password}\n{products}";
+            }
+
+        public bool VerifyPassword(string password)
+        {
+            if (password == _password)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
-
+        }
 
     }
